@@ -2,6 +2,30 @@
     <div class="flex flex-col gap-6">
         <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
 
+           @if ($errors->any())
+                <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            @if (session('login_message'))
+                <div class="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-700">
+                    {{ session('login_message') }}
+                </div>
+            @endif
+
+            @if (session('subscription_message'))
+                <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {{ session('subscription_message') }}
+                </div>
+            @endif
+
+            @if (session('status'))
+                <div class="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                    {{ session('status') }}
+                </div>
+            @endif
+
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
@@ -33,11 +57,11 @@
                     viewable
                 />
 
-                @if (Route::has('password.request'))
+                {{-- @if (Route::has('password.request'))
                     <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
                         {{ __('Forgot your password?') }}
                     </flux:link>
-                @endif
+                @endif --}}
             </div>
 
             <!-- Remember Me -->
@@ -50,9 +74,9 @@
             </div>
         </form>
 
-        <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
+        {{-- <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
             <span>{{ __('Don\'t have an account?') }}</span>
             <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
-        </div>
+        </div> --}}
     </div>
 </x-layouts::auth>

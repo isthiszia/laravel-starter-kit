@@ -52,7 +52,7 @@
 }
 
 [data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+    @apply !mb-0 !leading-tight;
 }
 
 input:focus[data-flux-control],
@@ -64,3 +64,34 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+span.absolute.inset-y-0.left-0 {
+    display: none !important;
+}
+
+table {
+    width: 100% !important;
+}
+
+.power-grid-table table {
+    width: 100% !important;
+}
+
+.custom-modal {
+    max-width: 400px !important;
+}
+
+.custom-modal.modal-md {
+    max-width: 768px !important;
+    width: 768px !important;
+}
+
+.custom-modal.modal-lg {
+    max-width: 1024px !important;
+    width: 1024px !important;
+}
+
+.custom-modal.modal-xl {
+    max-width: 1280px !important;
+    width: 1280px !important;
+}
