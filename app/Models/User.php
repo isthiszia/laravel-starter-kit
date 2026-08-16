@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'password', 'login_token', 'last_login_at', 'deleted_at'])]
+#[Fillable(['name', 'email', 'password', 'business_id', 'login_token', 'last_login_at', 'deleted_at'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token', 'login_token', 'last_login_at', 'deleted_at'])]
 class User extends Authenticatable
 {

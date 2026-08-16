@@ -73,6 +73,11 @@ final class UserTable extends PowerGridComponent
             ->add('email')
 
             ->add(
+                'role_name',
+                fn (User $user) => $user->getRoleNames()->implode(', ')
+            )
+
+            ->add(
                 'created_at_formatted',
                 fn (User $user) => $user->created_at
                     ? Carbon::parse($user->created_at)
@@ -109,6 +114,10 @@ final class UserTable extends PowerGridComponent
                 ->sortable()
                 ->editOnClick(hasPermission: true),
 
+            Column::make('Role', 'role_name')
+                ->searchable()
+                ->sortable(),
+
             Column::make(
                 'Created At',
                 'created_at_formatted',
@@ -134,16 +143,20 @@ final class UserTable extends PowerGridComponent
 
     public function actions(User $row): array
     {
-        return [
-            Button::add('delete')
+        $actions = [];
+
+        if (! $row->hasRole('super-admin')) {
+            $actions[] = Button::add('delete')
                 ->slot('Delete')
                 ->class(
                     'px-3 py-1 text-sm text-white bg-red-600 rounded hover:bg-red-700'
                 )
                 ->dispatch('delete-user', [
                     'id' => $row->id,
-                ]),
-        ];
+                ]);
+        }
+
+        return $actions;
     }
 
     #[On('delete-user')]

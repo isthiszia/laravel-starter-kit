@@ -4,14 +4,14 @@
 
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
 
-            <flux:input name="name" label="Name" placeholder="Enter name" />
+            <flux:input name="name" label="Name" placeholder="Enter name" required/>
 
-            <flux:input name="email" type="email" label="Email" placeholder="Enter email" autocomplete="off" />
+            <flux:input name="email" type="email" label="Email" placeholder="Enter email" autocomplete="off" required/>
 
             <flux:input name="password" type="password" label="Password" placeholder="Enter password"
-                autocomplete="new-password" />
+                autocomplete="new-password" required/>
 
-            <flux:select name="business_id" label="Business">
+            <flux:select name="business_id" label="Business" required>
                 <option value="">Select Business</option>
 
                 @foreach ($businesses as $business)
@@ -22,7 +22,7 @@
             </flux:select>
 
             <div class="md:col-span-2">
-                <flux:select name="role" label="Role">
+                <flux:select name="role" label="Role" required>
                     <option value="">Select Role</option>
 
                     @foreach ($roles as $role)
