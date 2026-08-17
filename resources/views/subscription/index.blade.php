@@ -1,19 +1,19 @@
-<x-layouts::app :title="__('Users')">
+<x-layouts::app :title="__('Business')">
     <div class="relative mb-6 w-full">
 
         <div class="flex items-center justify-between mb-6">
             <div>
                 <flux:heading size="xl" level="1">
-                    {{ __('Users Management') }}
+                    {{ __('Monthly Subscription') }}
                 </flux:heading>
 
                 <flux:subheading size="lg">
-                    {{ __('View and manage all users and businesses.') }}
+                    {{ __('View and manage all businesses subscription.') }}
                 </flux:subheading>
             </div>
-            <flux:modal.trigger name="add-user-modal">
+            <flux:modal.trigger name="add-subscription-modal">
                 <flux:button variant="primary">
-                    Add User
+                    Activate
                 </flux:button>
             </flux:modal.trigger>
 
@@ -26,9 +26,9 @@
     </div>
 
     <div class="rounded-xl border border-zinc-100 bg-white">
-        <livewire:user-table />
+        <livewire:SubscriptionTable />
     </div>
 
     {{-- Attach modal --}}
-    <x-modals.add-user-modal title="Add User" size="xl" :businesses="$businesses" :roles="$roles" />
+    <x-modals.add-subscription-modal title="Add Subscription" size="sm" :businesses="$businesses"/>
 </x-layouts::app>

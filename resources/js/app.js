@@ -1,5 +1,7 @@
-import './../../vendor/power-components/livewire-powergrid/dist/powergrid'
 import Swal from 'sweetalert2';
+import flatpickr from 'flatpickr';
+import './../../vendor/power-components/livewire-powergrid/dist/powergrid'
+import 'flatpickr/dist/flatpickr.css';
 
     document.addEventListener('livewire:init', () => {
 

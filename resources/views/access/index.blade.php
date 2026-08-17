@@ -29,9 +29,9 @@
 
         <flux:separator variant="subtle" />
 
-        <div class="overflow-hidden bg-white border rounded-xl shadow-sm">
+        <div class="overflow-hidden bg-white border rounded-xl border-zinc-100 ">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full divide-y">
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">
@@ -62,7 +62,7 @@
                     <tbody class="divide-y divide-gray-100 bg-white">
 
                         @foreach ($permissions as $permission)
-                            <tr class="hover:bg-gray-50">
+                            <tr>
 
                                 <td class="px-6 py-4">
                                     <div class="flex items-center justify-between">

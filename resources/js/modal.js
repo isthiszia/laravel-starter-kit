@@ -1,7 +1,5 @@
 document.addEventListener('click', function (e) {
-    const modal = document.querySelector(
-        'dialog[data-modal="add-user-modal"]'
-    );
+    const modal = e.target.closest('dialog[data-modal]');
 
     if (!modal || !modal.open) {
         return;

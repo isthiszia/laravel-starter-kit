@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\AccessController;
+use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -15,6 +16,12 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
 
     Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    /** -------------------- Subscription -------------------- **/
+    Route::prefix('subscription')->group(function () {
+        Route::get('/', [SubscriptionController::class, 'index'])->name('subscription');
+        Route::post('/store', [SubscriptionController::class, 'store'])->name('subscription.store');
+    });
 
     /** -------------------- Users -------------------- **/
     Route::prefix('users')->group(function () {
@@ -28,7 +35,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::post('/store', [BusinessController::class, 'store'])->name('business.store');
     });
 
-    /** -------------------- Business -------------------- **/
+    /** -------------------- Access -------------------- **/
     Route::prefix('access')->group(function () {
         Route::get('/', [AccessController::class, 'index'])->name('access');
 
