@@ -15,14 +15,14 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return redirect()->route('login');
         }
 
         $sessionToken = $request->session()->get('login_token');
         $userToken = auth()->user()->login_token;
 
-        if (!$sessionToken || $sessionToken !== $userToken) {
+        if (! $sessionToken || $sessionToken !== $userToken) {
 
             auth()->logout();
 

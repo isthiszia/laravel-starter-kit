@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Business;
 use App\Models\Subscription;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
-    public function index ()
+    public function index()
     {
         return view('subscription.index', [
             'businesses' => Business::where('name', '!=', 'Super Admin')->orderBy('name')->get(),
@@ -28,7 +29,7 @@ class SubscriptionController extends Controller
             ->first();
 
         if ($lastSubscription) {
-            $startDate = \Carbon\Carbon::parse($lastSubscription->due_date);
+            $startDate = Carbon::parse($lastSubscription->due_date);
         } else {
             $startDate = $today;
         }
@@ -37,14 +38,14 @@ class SubscriptionController extends Controller
 
         Subscription::create([
             'business_id' => $request->business_id,
-            'month'       => $startDate->format('Y-m'),
-            'status'      => 'active',
-            'start_date'  => $startDate,
-            'due_date'    => $dueDate,
+            'month' => $startDate->format('Y-m'),
+            'status' => 'active',
+            'start_date' => $startDate,
+            'due_date' => $dueDate,
         ]);
 
         return response()->json([
-            'status'  => true,
+            'status' => true,
             'message' => 'Subscription activated successfully.',
         ]);
     }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AccessController extends Controller
 {
@@ -40,7 +40,7 @@ class AccessController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => count($created) . ' permission(s) created successfully.',
+            'message' => count($created).' permission(s) created successfully.',
             'permissions' => $created,
         ]);
     }
@@ -95,9 +95,10 @@ class AccessController extends Controller
             ]);
             $created[] = $role;
         }
+
         return response()->json([
             'status' => true,
-            'message' => count($created) . ' role(s) created successfully.',
+            'message' => count($created).' role(s) created successfully.',
             'roles' => $created,
         ]);
     }
@@ -107,13 +108,14 @@ class AccessController extends Controller
         if ($role->name === 'super-admin') {
             return response()->json([
                 'status' => false,
-                'message' => 'Super Admin role cannot be deleted.'
+                'message' => 'Super Admin role cannot be deleted.',
             ], 422);
         }
         $role->delete();
+
         return response()->json([
             'status' => true,
-            'message' => 'Role deleted successfully.'
+            'message' => 'Role deleted successfully.',
         ]);
     }
 }

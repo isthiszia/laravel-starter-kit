@@ -3,14 +3,15 @@
 namespace App\Livewire;
 
 use App\Models\Business;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+use Livewire\Attributes\On;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
-use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridFields;
 
 final class BusinessTable extends PowerGridComponent
 {
@@ -45,7 +46,7 @@ final class BusinessTable extends PowerGridComponent
             ->add('id')
             ->add('name')
 
-           /** Example of custom column using a closure **/
+            /** Example of custom column using a closure **/
             ->add('name_lower', fn (Business $model) => strtolower(e($model->name)))
 
             ->add('email')
@@ -86,7 +87,7 @@ final class BusinessTable extends PowerGridComponent
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -103,7 +104,7 @@ final class BusinessTable extends PowerGridComponent
         ];
     }
 
-    #[\Livewire\Attributes\On('edit')]
+    #[On('edit')]
     public function edit($rowId): void
     {
         $this->js('alert('.$rowId.')');
@@ -116,7 +117,7 @@ final class BusinessTable extends PowerGridComponent
                 ->slot('Edit: '.$row->id)
                 ->id()
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
         ];
     }
 

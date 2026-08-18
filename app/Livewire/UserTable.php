@@ -3,12 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Flux\Flux;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
-use App\Models\Business;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Components\SetUp\Exportable;
@@ -16,7 +14,6 @@ use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
-use Flux\Flux;
 
 final class UserTable extends PowerGridComponent
 {

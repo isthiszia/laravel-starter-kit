@@ -2,16 +2,16 @@
 
 namespace App\Livewire;
 
-use Livewire\Attributes\On;
 use App\Models\Subscription;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+use Livewire\Attributes\On;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
-use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridFields;
 
 final class SubscriptionTable extends PowerGridComponent
 {
@@ -47,8 +47,7 @@ final class SubscriptionTable extends PowerGridComponent
 
             ->add(
                 'business_name',
-                fn (Subscription $subscription) =>
-                    $subscription->business?->name ?? '-'
+                fn (Subscription $subscription) => $subscription->business?->name ?? '-'
             )
 
             ->add('month')
@@ -60,7 +59,7 @@ final class SubscriptionTable extends PowerGridComponent
                     $today = Carbon::today();
 
                     $startDate = Carbon::parse($subscription->start_date);
-                    $dueDate   = Carbon::parse($subscription->due_date);
+                    $dueDate = Carbon::parse($subscription->due_date);
 
                     if ($dueDate->lt($today)) {
                         return '<span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-700">
@@ -88,14 +87,12 @@ final class SubscriptionTable extends PowerGridComponent
 
             ->add(
                 'start_date_formatted',
-                fn (Subscription $subscription) =>
-                    Carbon::parse($subscription->start_date)->format('d/m/Y')
+                fn (Subscription $subscription) => Carbon::parse($subscription->start_date)->format('d/m/Y')
             )
 
             ->add(
                 'due_date_formatted',
-                fn (Subscription $subscription) =>
-                    Carbon::parse($subscription->due_date)->format('d/m/Y')
+                fn (Subscription $subscription) => Carbon::parse($subscription->due_date)->format('d/m/Y')
             );
     }
 
@@ -120,7 +117,7 @@ final class SubscriptionTable extends PowerGridComponent
             Column::make('Due date', 'due_date_formatted', 'due_date')
                 ->sortable(),
 
-            Column::action('Action')
+            Column::action('Action'),
         ];
     }
 
@@ -134,7 +131,7 @@ final class SubscriptionTable extends PowerGridComponent
         ];
     }
 
-    #[\Livewire\Attributes\On('edit')]
+    #[On('edit')]
     public function edit($rowId): void
     {
         $this->js('alert('.$rowId.')');

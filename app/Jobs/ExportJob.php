@@ -2,10 +2,12 @@
 
 namespace App\Jobs;
 
-use Illuminate\Bus\{Batchable, Queueable};
+use Illuminate\Bus\Batchable;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\{InteractsWithQueue, SerializesModels};
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
 use PowerComponents\LivewirePowerGrid\Traits\ExportableJob;
 
@@ -36,7 +38,7 @@ class ExportJob implements ShouldQueue
         $this->filters = (array) Crypt::decrypt($params['filters']);
         $this->properties = (array) Crypt::decrypt($params['parameters']);
 
-        $this->componentTable = new $componentTable();
+        $this->componentTable = new $componentTable;
 
         $this->componentTable->isExporting = true;
     }
@@ -56,7 +58,7 @@ class ExportJob implements ShouldQueue
             return $column;
         }, $this->componentTable->columns());
 
-        (new $this->exportableClass())
+        (new $this->exportableClass)
             ->fileName($this->getFilename())
             ->setData($columnsWithHiddenState, $this->prepareToExport($this->properties))
             ->download($this->exportable);

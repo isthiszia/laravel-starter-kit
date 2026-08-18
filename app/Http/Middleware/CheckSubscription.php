@@ -18,7 +18,7 @@ class CheckSubscription
     {
         $user = auth()->user();
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->route('login');
         }
 
@@ -26,7 +26,7 @@ class CheckSubscription
             return $next($request);
         }
 
-        if (!$user->business_id) {
+        if (! $user->business_id) {
             abort(403, 'No business is associated with this account.');
         }
 
@@ -44,9 +44,9 @@ class CheckSubscription
         }
 
         $graceSubscription = Subscription::where(
-                'business_id',
-                $user->business_id
-            )
+            'business_id',
+            $user->business_id
+        )
             ->where('status', 'paid')
             ->whereDate('due_date', '>=', $today->copy()->subDays(5))
             ->whereDate('due_date', '<', $today)
