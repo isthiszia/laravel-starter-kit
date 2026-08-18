@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user');
         Route::post('/store', [UserController::class, 'store'])->name('user.store');
+        Route::put('/{user}', [UserController::class, 'update'])->name('user.update');
     });
 
     /** -------------------- Business -------------------- **/

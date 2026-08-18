@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Flux\Flux;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
@@ -143,16 +142,16 @@ final class UserTable extends PowerGridComponent
     {
         $actions = [];
 
-        $actions[] = Button::add('edit')
-            ->slot('Edit')
-            ->class(
-                'px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700'
-            )
-            ->dispatch('edit-user', [
-                'id' => $row->id,
-            ]);
-
         if (! $row->hasRole('super-admin')) {
+            $actions[] = Button::add('edit')
+                ->slot('Edit')
+                ->class(
+                    'px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700'
+                )
+                ->dispatch('edit-user', [
+                    'id' => $row->id,
+                ]);
+                
             $actions[] = Button::add('delete')
                 ->slot('Delete')
                 ->class(
@@ -167,14 +166,19 @@ final class UserTable extends PowerGridComponent
     }
 
     #[On('edit-user')]
-    public function editUser($id)
+    public function editUser($id): void
     {
-        $user = User::findOrFail($id);
+        $user = User::with('business')->findOrFail($id);
 
-        // Agar baad mein edit form ke fields load karne hain
-        // yahan user data set kar sakte ho.
+        $role = $user->getRoleNames()->first();
 
-        Flux::modal('edit-user-modal')->show();
+        $this->dispatch('open-edit-user-modal', user: [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'business_id' => $user->business_id,
+            'role' => $role,
+        ]);
     }
 
     #[On('delete-user')]
