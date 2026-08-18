@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,7 +16,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
 Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
 
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     /** -------------------- Subscription -------------------- **/
     Route::prefix('subscription')->group(function () {
