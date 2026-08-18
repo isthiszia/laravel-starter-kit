@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
     Route::prefix('business')->group(function () {
         Route::get('/', [BusinessController::class, 'index'])->name('business');
         Route::post('/store', [BusinessController::class, 'store'])->name('business.store');
+        Route::put('/{business}', [BusinessController::class, 'update'])->name('business.update');
     });
 
     /** -------------------- Access -------------------- **/

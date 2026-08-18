@@ -54,7 +54,7 @@ final class BusinessTable extends PowerGridComponent
             ->add('address')
             ->add('logo')
             ->add('is_active')
-            ->add('created_at_formatted', fn (Business $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->add('created_at_formatted', fn (Business $model) => Carbon::parse($model->created_at)->format('d/m/Y'));
     }
 
     public function columns(): array
@@ -114,11 +114,33 @@ final class BusinessTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
-                ->slot('Edit: '.$row->id)
-                ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id]),
+                ->slot('Edit')
+                ->class(
+                    'px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700'
+                )
+                ->dispatch('edit-business', [
+                    'id' => $row->id,
+                ]),
         ];
+    }
+
+    #[On('edit-business')]
+    public function editBusiness($id): void
+    {
+        $business = Business::findOrFail($id);
+
+        $this->dispatch(
+            'edit-business-modal',
+            business: [
+                'id' => $business->id,
+                'name' => $business->name,
+                'email' => $business->email,
+                'phone' => $business->phone,
+                'address' => $business->address,
+                'logo' => $business->logo,
+                'is_active' => $business->is_active,
+            ]
+        );
     }
 
     /*

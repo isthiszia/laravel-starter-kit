@@ -25,7 +25,7 @@
         <flux:separator variant="subtle" />
     </div>
 
-    <div class="rounded-xl border border-zinc-100 bg-white">
+    <div class="power-grid">
         <livewire:SubscriptionTable />
     </div>
 

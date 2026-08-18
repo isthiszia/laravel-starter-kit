@@ -25,10 +25,11 @@
         <flux:separator variant="subtle" />
     </div>
 
-    <div class="rounded-xl border border-zinc-100 bg-white">
+    <div class="power-grid">
         <livewire:BusinessTable />
     </div>
 
     {{-- Attach modal --}}
     <x-modals.add-business-modal title="Add Business" size="xl" />
+    <x-modals.edit-business-modal title="Edit Business" size="xl" />
 </x-layouts::app>

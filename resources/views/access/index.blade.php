@@ -29,7 +29,7 @@
 
         <flux:separator variant="subtle" />
 
-        <div class="overflow-hidden bg-white border rounded-xl border-zinc-100 ">
+        <div class="overflow-hidden border rounded-xl border-zinc-100 ">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y">
                     <thead class="bg-gray-50">
@@ -59,14 +59,14 @@
                         </tr>
                     </thead>
 
-                    <tbody class="divide-y divide-gray-100 bg-white">
+                    <tbody class="divide-y divide-gray-100 ">
 
                         @foreach ($permissions as $permission)
                             <tr>
 
                                 <td class="px-6 py-4">
                                     <div class="flex items-center justify-between">
-                                        <span class="font-medium text-gray-700">
+                                        <span class="font-medium text-gray-700 dark:text-white">
                                             {{ $permission->name }}
                                         </span>
 

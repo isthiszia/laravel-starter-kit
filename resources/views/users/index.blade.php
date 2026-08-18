@@ -25,16 +25,11 @@
         <flux:separator variant="subtle" />
     </div>
 
-    <div class="rounded-xl border border-zinc-100 bg-white">
+    <div class="power-grid">
         <livewire:user-table />
     </div>
 
     {{-- Attach modal --}}
     <x-modals.add-user-modal title="Add User" size="xl" :businesses="$businesses" :roles="$roles" />
-    <x-modals.edit-user-modal
-    title="Edit User"
-    size="xl"
-    :businesses="$businesses"
-    :roles="$roles"
-/>
+    <x-modals.edit-user-modal title="Edit User" size="xl" :businesses="$businesses" :roles="$roles" />
 </x-layouts::app>
