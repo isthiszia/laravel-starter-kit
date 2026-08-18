@@ -31,4 +31,10 @@
 
     {{-- Attach modal --}}
     <x-modals.add-user-modal title="Add User" size="xl" :businesses="$businesses" :roles="$roles" />
+    <x-modals.edit-user-modal
+    title="Edit User"
+    size="xl"
+    :businesses="$businesses"
+    :roles="$roles"
+/>
 </x-layouts::app>

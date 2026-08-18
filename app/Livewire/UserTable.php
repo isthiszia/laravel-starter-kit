@@ -16,6 +16,7 @@ use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
+use Flux\Flux;
 
 final class UserTable extends PowerGridComponent
 {
@@ -145,6 +146,15 @@ final class UserTable extends PowerGridComponent
     {
         $actions = [];
 
+        $actions[] = Button::add('edit')
+            ->slot('Edit')
+            ->class(
+                'px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700'
+            )
+            ->dispatch('edit-user', [
+                'id' => $row->id,
+            ]);
+
         if (! $row->hasRole('super-admin')) {
             $actions[] = Button::add('delete')
                 ->slot('Delete')
@@ -157,6 +167,17 @@ final class UserTable extends PowerGridComponent
         }
 
         return $actions;
+    }
+
+    #[On('edit-user')]
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Agar baad mein edit form ke fields load karne hain
+        // yahan user data set kar sakte ho.
+
+        Flux::modal('edit-user-modal')->show();
     }
 
     #[On('delete-user')]
