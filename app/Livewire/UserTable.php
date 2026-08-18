@@ -172,7 +172,7 @@ final class UserTable extends PowerGridComponent
 
         $role = $user->getRoleNames()->first();
 
-        $this->dispatch('open-edit-user-modal', user: [
+        $this->dispatch('edit-user-modal', user: [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,

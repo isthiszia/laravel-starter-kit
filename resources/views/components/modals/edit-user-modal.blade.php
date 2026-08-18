@@ -59,7 +59,7 @@
 
 <script>
     document.addEventListener('livewire:init', () => {
-        Livewire.on('open-edit-user-modal', (event) => {
+        Livewire.on('edit-user-modal', (event) => {
             let user = event.user;
             $('#edit_user_id').val(user.id);
             $('#edit_name').val(user.name);
