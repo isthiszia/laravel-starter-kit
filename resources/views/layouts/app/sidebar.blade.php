@@ -14,29 +14,41 @@
         </flux:sidebar.header>
 
         <flux:sidebar.nav>
-            <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
-                wire:navigate>
-                {{ __('Dashboard') }}
-            </flux:sidebar.item>
-            <flux:sidebar.item icon="credit-card" :href="route('subscription')"
-                :current="request()->routeIs('subscription')" wire:navigate>
-                {{ __('Subscription') }}
-            </flux:sidebar.item>
+            @can('dashboard')
+                <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                    wire:navigate>
+                    {{ __('Dashboard') }}
+                </flux:sidebar.item>
+            @endcan
+            @can('subscription')
+                <flux:sidebar.item icon="credit-card" :href="route('subscription')"
+                    :current="request()->routeIs('subscription')" wire:navigate>
+                    {{ __('Subscription') }}
+                </flux:sidebar.item>
+            @endcan
 
-            <flux:sidebar.group :heading="__('Account')" class="grid">
-                <flux:sidebar.item icon="user" :href="route('user')" :current="request()->routeIs('user')"
-                    wire:navigate>
-                    {{ __('Users') }}
-                </flux:sidebar.item>
-                <flux:sidebar.item icon="user-group" :href="route('business')" :current="request()->routeIs('business')"
-                    wire:navigate>
-                    {{ __('Business') }}
-                </flux:sidebar.item>
-                <flux:sidebar.item icon="shield-check" :href="route('access')" :current="request()->routeIs('access')"
-                    wire:navigate>
-                    {{ __('Access') }}
-                </flux:sidebar.item>
-            </flux:sidebar.group>
+            @can('account')
+                <flux:sidebar.group :heading="__('Account')" class="grid">
+                    @can('users')
+                        <flux:sidebar.item icon="user" :href="route('user')" :current="request()->routeIs('user')"
+                            wire:navigate>
+                            {{ __('Users') }}
+                        </flux:sidebar.item>
+                    @endcan
+                    @can('business')
+                        <flux:sidebar.item icon="user-group" :href="route('business')" :current="request()->routeIs('business')"
+                            wire:navigate>
+                            {{ __('Business') }}
+                        </flux:sidebar.item>
+                    @endcan
+                    @can('access')
+                        <flux:sidebar.item icon="shield-check" :href="route('access')" :current="request()->routeIs('access')"
+                            wire:navigate>
+                            {{ __('Access') }}
+                        </flux:sidebar.item>
+                    @endcan
+                </flux:sidebar.group>
+            @endcan
 
         </flux:sidebar.nav>
 

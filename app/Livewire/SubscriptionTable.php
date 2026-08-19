@@ -141,6 +141,7 @@ final class SubscriptionTable extends PowerGridComponent
     {
         $actions = [];
 
+        if (auth()->user()->can('delete-subscription')) {
         $actions[] = Button::add('delete')
             ->slot('Delete')
             ->class(
@@ -149,6 +150,7 @@ final class SubscriptionTable extends PowerGridComponent
             ->dispatch('delete-subscription', [
                 'id' => $row->id,
             ]);
+        }
 
         return $actions;
     }

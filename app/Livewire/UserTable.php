@@ -143,15 +143,24 @@ final class UserTable extends PowerGridComponent
         $actions = [];
 
         if (! $row->hasRole('super-admin')) {
+            if (auth()->user()->can('edit-user')) {
             $actions[] = Button::add('edit')
                 ->slot('Edit')
                 ->class(
                     'px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700'
                 )
-                ->dispatch('edit-user', [
-                    'id' => $row->id,
+                ->dispatch('edit-user-modal', [
+                    'user' => [
+                        'id' => $row->id,
+                        'name' => $row->name,
+                        'email' => $row->email,
+                        'business_id' => $row->business_id,
+                        'role' => $row->getRoleNames()->first(),
+                    ],
                 ]);
-                
+            }
+
+            if (auth()->user()->can('delete-user')) {
             $actions[] = Button::add('delete')
                 ->slot('Delete')
                 ->class(
@@ -160,26 +169,27 @@ final class UserTable extends PowerGridComponent
                 ->dispatch('delete-user', [
                     'id' => $row->id,
                 ]);
+            }
         }
 
         return $actions;
     }
 
-    #[On('edit-user')]
-    public function editUser($id): void
-    {
-        $user = User::with('business')->findOrFail($id);
+    // #[On('edit-user')]
+    // public function editUser($id): void
+    // {
+    //     $user = User::with('business')->findOrFail($id);
 
-        $role = $user->getRoleNames()->first();
+    //     $role = $user->getRoleNames()->first();
 
-        $this->dispatch('edit-user-modal', user: [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'business_id' => $user->business_id,
-            'role' => $role,
-        ]);
-    }
+    //     $this->dispatch('edit-user-modal', user: [
+    //         'id' => $user->id,
+    //         'name' => $user->name,
+    //         'email' => $user->email,
+    //         'business_id' => $user->business_id,
+    //         'role' => $role,
+    //     ]);
+    // }
 
     #[On('delete-user')]
     public function deleteUser($id): void

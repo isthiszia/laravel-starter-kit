@@ -33,20 +33,6 @@
 </x-modals.form-modal>
 
 <script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('edit-business-modal', (event) => {
-            let business = event.business;
-            $('#edit_business_id').val(business.id);
-            $('#edit_business_name').val(business.name);
-            $('#edit_business_email').val(business.email);
-            $('#edit_business_phone').val(business.phone);
-            $('#edit_business_address').val(business.address);
-            if (window.Flux) {
-                Flux.modal('edit-business-modal').show();
-            }
-        });
-    });
-
     $(document).on('submit', '#editBusinessForm', function(e) {
         e.preventDefault();
         let form = $(this);

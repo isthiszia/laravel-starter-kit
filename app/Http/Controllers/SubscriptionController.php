@@ -6,9 +6,15 @@ use App\Models\Business;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class SubscriptionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:subscription')->only('index');
+        $this->middleware('permission:add-subscription')->only('store');
+    }
     public function index()
     {
         return view('subscription.index', [

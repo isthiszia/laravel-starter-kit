@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Business;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Routing\Controller;
 
 class BusinessController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:business')->only('index');
+        $this->middleware('permission:add-business')->only('store');
+        $this->middleware('permission:edit-business')->only('update');
+    }
     public function index()
     {
         return view('business.index');

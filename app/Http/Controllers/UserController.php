@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rule;
+use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:users')->only('index');
+        $this->middleware('permission:add-user')->only('store');
+    }
     public function index()
     {
         return view('users.index', [

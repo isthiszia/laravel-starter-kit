@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controller;
 
 class AccessController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:access')->only('index');
+    }
     public function index()
     {
         $roles = Role::all();

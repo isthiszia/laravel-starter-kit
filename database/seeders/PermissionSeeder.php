@@ -14,6 +14,18 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             ['name' => 'dashboard'],
+            ['name' => 'subscription'],
+            ['name' => 'delete-subscription'],
+            ['name' => 'account'],
+            ['name' => 'users'],
+            ['name' => 'add-user'],
+            ['name' => 'edit-user'],
+            ['name' => 'delete-user'],
+            ['name' => 'business'],
+            ['name' => 'add-business'],
+            ['name' => 'edit-business'],
+            ['name' => 'delete-business'],
+            ['name' => 'access'],
         ];
 
         foreach ($permissions as $permission) {

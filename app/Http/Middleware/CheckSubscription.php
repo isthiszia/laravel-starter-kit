@@ -30,38 +30,38 @@ class CheckSubscription
             abort(403, 'No business is associated with this account.');
         }
 
-        $today = now()->startOfDay();
+        $today = now();
 
-        $subscription = Subscription::where('business_id', $user->business_id)
-            ->where('status', 'paid')
-            ->whereDate('start_date', '<=', $today)
-            ->whereDate('due_date', '>=', $today)
-            ->latest('due_date')
-            ->first();
+        $subscription = Subscription::where('business_id', $user->business_id)->orderBy('due_date', 'desc')->first();
+        if (! $subscription) {
+            auth()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()
+                ->route('login')
+                ->with(
+                    'subscription_message',
+                    'No subscription record found. Please contact admin.'
+                );
+        }
 
-        if ($subscription) {
+        if ($today->lessThanOrEqualTo($subscription->due_date)) {
+            return $next($request);
+        }
+        $gracePeriodEnd = $subscription->due_date->copy()->addDays(5);
+        if ($today->lessThanOrEqualTo($gracePeriodEnd)) {
             return $next($request);
         }
 
-        $graceSubscription = Subscription::where(
-            'business_id',
-            $user->business_id
-        )
-            ->where('status', 'paid')
-            ->whereDate('due_date', '>=', $today->copy()->subDays(5))
-            ->whereDate('due_date', '<', $today)
-            ->latest('due_date')
-            ->first();
-
-        if ($graceSubscription) {
-            return $next($request);
-        }
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()
             ->route('login')
             ->with(
                 'subscription_message',
-                'Your subscription has expired. You have exceeded the 5-day grace period. Please renew your subscription to continue.'
+                'Subscription expired. Please contact admin.'
             );
     }
 }

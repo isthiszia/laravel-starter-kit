@@ -112,36 +112,48 @@ final class BusinessTable extends PowerGridComponent
 
     public function actions(Business $row): array
     {
-        return [
-            Button::add('edit')
+        $actions = [];
+
+        if (auth()->user()->can('edit-business')) {
+            $actions[] = Button::add('edit')
                 ->slot('Edit')
                 ->class(
                     'px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700'
                 )
-                ->dispatch('edit-business', [
-                    'id' => $row->id,
-                ]),
-        ];
+                ->dispatch('edit-business-modal', [
+                    'business' => [
+                        'id' => $row->id,
+                        'name' => $row->name,
+                        'email' => $row->email,
+                        'phone' => $row->phone,
+                        'address' => $row->address,
+                        'logo' => $row->logo,
+                        'is_active' => $row->is_active,
+                    ],
+                ]);
+        }
+
+        return $actions;
     }
 
-    #[On('edit-business')]
-    public function editBusiness($id): void
-    {
-        $business = Business::findOrFail($id);
+    // #[On('edit-business')]
+    // public function editBusiness($id): void
+    // {
+    //     $business = Business::findOrFail($id);
 
-        $this->dispatch(
-            'edit-business-modal',
-            business: [
-                'id' => $business->id,
-                'name' => $business->name,
-                'email' => $business->email,
-                'phone' => $business->phone,
-                'address' => $business->address,
-                'logo' => $business->logo,
-                'is_active' => $business->is_active,
-            ]
-        );
-    }
+    //     $this->dispatch(
+    //         'edit-business-modal',
+    //         business: [
+    //             'id' => $business->id,
+    //             'name' => $business->name,
+    //             'email' => $business->email,
+    //             'phone' => $business->phone,
+    //             'address' => $business->address,
+    //             'logo' => $business->logo,
+    //             'is_active' => $business->is_active,
+    //         ]
+    //     );
+    // }
 
     /*
     public function actionRules($row): array

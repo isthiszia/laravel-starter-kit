@@ -15,7 +15,7 @@
             <flux:input name="password" id="edit_password" type="password" label="Password"
                 placeholder="Leave blank to keep current password" autocomplete="new-password" />
 
-            <flux:select name="business_id" id="edit_business_id" label="Business" required>
+            <flux:select name="business_id" id="edit_user_business_id" label="Business" required>
                 <option value="">Select Business</option>
 
                 @foreach ($businesses as $business)
@@ -58,22 +58,6 @@
 
 
 <script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('edit-user-modal', (event) => {
-            let user = event.user;
-            $('#edit_user_id').val(user.id);
-            $('#edit_name').val(user.name);
-            $('#edit_email').val(user.email);
-            $('#edit_business_id').val(user.business_id);
-            $('#edit_role').val(user.role);
-            $('#edit_password').val('');
-            if (window.Flux) {
-                Flux.modal('edit-user-modal').show();
-            }
-        });
-    });
-
-
     $(document).on('submit', '#editUserForm', function(e) {
         e.preventDefault();
         let form = $(this);
