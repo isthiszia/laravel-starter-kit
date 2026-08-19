@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
+use Flux\Flux;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Components\SetUp\Exportable;
@@ -103,13 +104,11 @@ final class UserTable extends PowerGridComponent
 
             Column::make('Name', 'name')
                 ->searchable()
-                ->sortable()
-                ->editOnClick(hasPermission: true),
+                ->sortable(),
 
             Column::make('Email', 'email')
                 ->searchable()
-                ->sortable()
-                ->editOnClick(hasPermission: true),
+                ->sortable(),
 
             Column::make('Role', 'role_name')
                 ->searchable()
@@ -194,7 +193,13 @@ final class UserTable extends PowerGridComponent
     #[On('delete-user')]
     public function deleteUser($id): void
     {
-        User::findOrFail($id)?->delete();
+        $user = User::findOrFail($id);
+        $name = $user->name;
+        $user->delete();
+        Flux::toast(
+            variant: 'success',
+            text: "{$name} deleted successfully.",
+        );
     }
 
     public function onUpdatedEditable(string|int $id, string $field, string $value): void

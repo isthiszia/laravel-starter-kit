@@ -64,10 +64,9 @@
         let userId = $('#edit_user_id').val();
         let submitButton = $('#editUserSubmitBtn');
         if (!userId) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'User ID is missing.'
+            Flux.toast({
+                variant: 'error',
+                text: 'User ID is missing.',
             });
             return;
         }
@@ -83,12 +82,9 @@
                     Flux.modal('edit-user-modal').close();
                 }
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
+                Flux.toast({
+                    variant: 'success',
                     text: response.message ?? 'User updated successfully',
-                    timer: 1800,
-                    showConfirmButton: false
                 });
 
                 if (window.Livewire) {
@@ -111,10 +107,9 @@
                     message = xhr.responseJSON.message;
                 }
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: message
+                Flux.toast({
+                    variant: 'error',
+                    text: message,
                 });
             },
 

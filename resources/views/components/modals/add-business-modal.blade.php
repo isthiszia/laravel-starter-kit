@@ -28,7 +28,6 @@
 <script>
     $(document).on('submit', '#addBusinessForm', function(e) {
         e.preventDefault();
-        console.log('Form submitted');
         let form = $(this);
 
         $.ajax({
@@ -44,10 +43,9 @@
                     Flux.modal('add-business-modal').close();
                 }
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: response.message ?? 'Business created successfully'
+                Flux.toast({
+                    variant: 'success',
+                    text: response.message ?? 'Business created successfully',
                 });
 
                 if (window.Livewire) {
@@ -63,10 +61,9 @@
                     message = xhr.responseJSON.message;
                 }
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: message
+                Flux.toast({
+                    variant: 'error',
+                    text: message,
                 });
             }
         });

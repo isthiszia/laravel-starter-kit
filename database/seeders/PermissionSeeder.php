@@ -15,6 +15,7 @@ class PermissionSeeder extends Seeder
         $permissions = [
             ['name' => 'dashboard'],
             ['name' => 'subscription'],
+            ['name' => 'add-subscription'],
             ['name' => 'delete-subscription'],
             ['name' => 'account'],
             ['name' => 'users'],

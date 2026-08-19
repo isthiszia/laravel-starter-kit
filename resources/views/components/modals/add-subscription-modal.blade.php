@@ -45,12 +45,9 @@
                     Flux.modal('add-subscription-modal').close();
                 }
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
+                Flux.toast({
+                    variant: 'success',
                     text: response.message ?? 'Subscription created successfully',
-                    timer: 2000,
-                    showConfirmButton: false
                 });
                 if (window.Livewire) {
                     Livewire.dispatch('pg:eventRefresh-subscriptionTable');
@@ -87,10 +84,9 @@
                 else if (xhr.responseJSON?.message) {
                     message = xhr.responseJSON.message;
                 }
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: message
+                Flux.toast({
+                    variant: 'error',
+                    text: message,
                 });
             }
         });

@@ -19,7 +19,6 @@
 <script>
     $(document).on('submit', '#addRoleForm', function(e) {
         e.preventDefault();
-        console.log('Form submitted');
         let form = $(this);
 
         $.ajax({
@@ -35,10 +34,9 @@
                     Flux.modal('add-role-modal').close();
                 }
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: response.message ?? 'Role created successfully'
+                Flux.toast({
+                    variant: 'success',
+                    text: response.message ?? 'Role created successfully',
                 });
             },
 
@@ -50,10 +48,9 @@
                     message = xhr.responseJSON.message;
                 }
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: message
+                Flux.toast({
+                    variant: 'error',
+                    text: message,
                 });
             }
         });

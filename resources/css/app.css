@@ -137,3 +137,46 @@ table {
     max-width: 1280px !important;
     width: 1280px !important;
 }
+
+body > .swal2-container,
+.swal2-container {
+    z-index: 2147483647 !important;
+}
+
+.swal2-popup {
+    position: relative !important;
+    z-index: 2147483647 !important;
+}
+
+.swal2-container.swal2-backdrop-show {
+    z-index: 2147483647 !important;
+}
+
+.swal2-html-container {
+    position: relative;
+    z-index: 2147483647 !important;
+}
+
+.swal2-title {
+    position: relative;
+    z-index: 2147483647 !important;
+}
+
+.swal2-actions {
+    position: relative;
+    z-index: 2147483647 !important;
+}
+
+.swal2-confirm,
+.swal2-cancel,
+.swal2-deny {
+    position: relative;
+    z-index: 2147483647 !important;
+}
+
+[role="dialog"] {
+    z-index: 9999;
+}
+.swal2-container {
+    z-index: 2147483647 !important;
+}

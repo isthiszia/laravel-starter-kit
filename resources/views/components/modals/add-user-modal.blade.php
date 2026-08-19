@@ -46,7 +46,6 @@
 <script>
     $(document).on('submit', '#addUserForm', function(e) {
         e.preventDefault();
-        console.log('Form submitted');
         let form = $(this);
 
         $.ajax({
@@ -62,10 +61,9 @@
                     Flux.modal('add-user-modal').close();
                 }
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: response.message ?? 'User created successfully'
+                Flux.toast({
+                    variant: 'success',
+                    text: response.message ?? 'User created successfully',
                 });
 
                 if (window.Livewire) {
@@ -81,10 +79,9 @@
                     message = xhr.responseJSON.message;
                 }
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: message
+                Flux.toast({
+                    variant: 'success',
+                    text: message,
                 });
             }
         });

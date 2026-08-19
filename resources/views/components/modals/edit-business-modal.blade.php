@@ -39,10 +39,9 @@
         let businessId = $('#edit_business_id').val();
         let submitButton = $('#editBusinessSubmitBtn');
         if (!businessId) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Business ID is missing.'
+            Flux.toast({
+                variant: 'error',
+                text: 'Business ID is missing.',
             });
             return;
         }
@@ -60,13 +59,9 @@
                     Flux.modal('edit-business-modal').close();
                 }
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: response.message ??
-                        'Business updated successfully',
-                    timer: 1800,
-                    showConfirmButton: false
+                Flux.toast({
+                    variant: 'success',
+                    text: response.message ?? 'Business updated successfully',
                 });
 
                 if (window.Livewire) {
@@ -97,10 +92,9 @@
                     message = xhr.responseJSON.message;
                 }
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: message
+                Flux.toast({
+                    variant: 'error',
+                    text: message,
                 });
             },
 
